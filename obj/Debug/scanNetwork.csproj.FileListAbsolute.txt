@@ -1,0 +1,5 @@
+c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\bin\Debug\scanNetwork.exe
+c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\bin\Debug\scanNetwork.pdb
+c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.csprojResolveAssemblyReference.cache
+c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.exe
+c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.pdb
