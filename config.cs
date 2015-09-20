@@ -4,35 +4,46 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace scanNetwork
 {
     class config
     {
+
         //起始計算的ip
-        private string _ip = "127.0.0.1";
-        //起始計算的mask
-        private string _range = "D";
+        private string _ip = System.Configuration.ConfigurationManager.AppSettings["default_ip"];
+        
+        //終點計算的ip
+        private string _endip = System.Configuration.ConfigurationManager.AppSettings["default_endip"];
+
         //保存要檢查的ip列表
         private List<string> _iplist = new List<string>();
         //多執行續的數量
-        private int _maxThread = 10;
+        private int _maxThread = int.Parse(System.Configuration.ConfigurationManager.AppSettings["minThread"]);
+        //寫log的檔名
+        private string _logpath = DateTime.Now.ToString("ddMMyyyy-hhmm")+ ".log";
+
+        //ping的timeout時間
+        private int _pingTimeout = int.Parse(System.Configuration.ConfigurationManager.AppSettings["pingTimeout"]);
+
         
 
         /// <summary>
-        /// 起始點的ip,預設 127.0.0.1
+        /// 起始點的ip,預設 192.168.1.1
         /// </summary>
         public string ip {
             get { return _ip; }
             set { _ip = value; }
         }
         /// <summary>
-        /// 設定範圍 C or D,預設 D
+        /// 結束點的ip 預設 192.168.1.254
         /// </summary>
-        public string range {
-            get { return _range; }
-            set { _range = value; }
+        public string endip {
+            get { return _endip; }
+            set { _endip = value; }
         }
+
         /// <summary>
         /// 執行續的最大數量,預設 10
         /// </summary>
@@ -40,7 +51,21 @@ namespace scanNetwork
             get { return _maxThread; }
             set { _maxThread = value;}
         }
+        /// <summary>
+        /// log檔名
+        /// </summary>
+        public string logpath {
+            get { return _logpath; }
+            set { _logpath = value; }
+        }
 
+        /// <summary>
+        /// ping 的 timeout時間
+        /// </summary>
+        public int pingTimeout {
+            get { return _pingTimeout; }
+            set { _pingTimeout = value; }
+        }
 
 
         /// <summary>
@@ -50,35 +75,8 @@ namespace scanNetwork
             try
             {
                 bool result = false;
-                string range = this._range;
-                switch (range.ToLower())
-                {
-                    case "c":
-                        for (int i = 1; i < 254; i++)
-                        {
-                            for (int j = 1; j < 254; j++)
-                            {
-string[] cut = Regex.Split(_ip,@"\.");
-                                string thisIP = cut[0] + "." + cut[1] + "." + i + "." + j;
-                                _iplist.Add(thisIP);
-                            }
-                        }
-                        result = true;
-                        break;
-
-                    case "d":
-                        for (int i = 1; i < 254; i++)
-                        {
-                                string[] cut = Regex.Split(_ip,@"\.");
-                                string thisIP = cut[0] + "." + cut[1] + "." + cut[2] + "." + i;
-                                _iplist.Add(thisIP);
-                        }
-                        result = true;
-                        break;
-                    default:
-                        result = false;
-                        break;
-                }
+                genIPList(this.ip,this.endip);
+                result = true;
                 return result;
             }
             catch (Exception)
@@ -99,6 +97,47 @@ string[] cut = Regex.Split(_ip,@"\.");
         /// <returns></returns>
         public int listlen() {
             return _iplist.Count();
+        }
+
+        /// <summary>
+        /// 產生範圍內的ip清冊
+        /// </summary>
+        /// <param name="startIP">起始ip</param>
+        /// <param name="endIP">終點ip</param>
+        /// <returns></returns>
+        private Boolean genIPList(string startIP,string endIP) {
+            bool result = false;
+            try
+            {
+                string[] cutStart = Regex.Split(startIP, @"\.");
+                string[] cutEnd = Regex.Split(endIP, @"\.");
+                //組出bclass 例如 192.168
+                string bclass = cutStart[0] + "." + cutStart[1]; 
+                //創造清單
+                if (Convert.ToInt32(cutEnd[2]) >= Convert.ToInt32(cutStart[2]))
+                {
+                    //class d起點
+                    int classd = Convert.ToInt32(cutStart[3]);
+                    for (int i = Convert.ToInt32(cutStart[2]); i <= Convert.ToInt32(cutEnd[2]); i++)
+                    {
+                        for (int j = classd; j <= ((i == Convert.ToInt32(cutEnd[2])) ? Convert.ToInt32(cutEnd[3]) : 254); j++)
+                            {
+                                string thisIP = bclass + "." + i + "." + j;
+                                _iplist.Add(thisIP);
+                            }
+                        classd = 1;
+                    }
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+            return result;
         }
         
     }

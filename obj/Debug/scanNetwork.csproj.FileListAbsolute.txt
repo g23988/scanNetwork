@@ -3,3 +3,11 @@ c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\bi
 c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.csprojResolveAssemblyReference.cache
 c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.exe
 c:\users\weiwei\documents\visual studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.pdb
+D:\scanNetwork\obj\Debug\scanNetwork.exe
+D:\scanNetwork\obj\Debug\scanNetwork.pdb
+D:\scanNetwork\bin\Debug\scanNetwork.exe
+D:\scanNetwork\bin\Debug\scanNetwork.pdb
+D:\scanNetwork\obj\Debug\scanNetwork.csprojResolveAssemblyReference.cache
+D:\scanNetwork\obj\Debug\scanNetwork.Properties.Resources.resources
+D:\scanNetwork\obj\Debug\scanNetwork.csproj.GenerateResource.Cache
+D:\scanNetwork\bin\Debug\scanNetwork.exe.config
