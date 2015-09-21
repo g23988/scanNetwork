@@ -51,8 +51,7 @@ namespace scanNetwork
                     }
                     else
                     {
-                        string resultPdu = pdu.VbList[0].Value.ToString();
-                        string[] cutPdu = Regex.Split(resultPdu, @"\.");
+                        string[] cutPdu = Regex.Split(result.Pdu.VbList[0].Value.ToString(),@"\.");
                         hostname = cutPdu[0];
                     }
                 }

@@ -16,3 +16,13 @@ C:\Users\weiwei\Documents\Visual Studio 2012\Projects\scanNetwork\scanNetwork\ob
 C:\Users\weiwei\Documents\Visual Studio 2012\Projects\scanNetwork\scanNetwork\obj\Debug\scanNetwork.csproj.GenerateResource.Cache
 C:\Users\weiwei\Documents\Visual Studio 2012\Projects\scanNetwork\scanNetwork\bin\Debug\SnmpSharpNet.pdb
 C:\Users\weiwei\Documents\Visual Studio 2012\Projects\scanNetwork\scanNetwork\bin\Debug\SnmpSharpNet.xml
+D:\scanNetwork\scanNetwork\bin\Debug\scanNetwork.exe.config
+D:\scanNetwork\scanNetwork\obj\Debug\scanNetwork.exe
+D:\scanNetwork\scanNetwork\obj\Debug\scanNetwork.pdb
+D:\scanNetwork\scanNetwork\bin\Debug\scanNetwork.exe
+D:\scanNetwork\scanNetwork\bin\Debug\scanNetwork.pdb
+D:\scanNetwork\scanNetwork\bin\Debug\SnmpSharpNet.pdb
+D:\scanNetwork\scanNetwork\bin\Debug\SnmpSharpNet.xml
+D:\scanNetwork\scanNetwork\obj\Debug\scanNetwork.csprojResolveAssemblyReference.cache
+D:\scanNetwork\scanNetwork\obj\Debug\scanNetwork.Properties.Resources.resources
+D:\scanNetwork\scanNetwork\obj\Debug\scanNetwork.csproj.GenerateResource.Cache
