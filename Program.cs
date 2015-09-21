@@ -106,7 +106,7 @@ namespace scanNetwork
                 {
                     outputline += " >\"<";
                 }
-                File.AppendAllText(config.logpath, ip + hostname + "\n");
+                File.AppendAllText(config.logpath, ip +","+ hostname + "\n");
                 existcount++;
             }
             else
