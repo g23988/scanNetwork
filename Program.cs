@@ -63,33 +63,57 @@ namespace scanNetwork
             
             try
             {
-                string ip = (string)obj;
-                
-                Ping pingSender = new Ping();
-                PingOptions options = new PingOptions();
-                options.DontFragment = true;
-                int timeout = config.pingTimeout;
-                PingReply reply = pingSender.Send(ip,timeout);
-                if (reply.Status == IPStatus.Success)
-                {
-                    File.AppendAllText(config.logpath, obj.ToString()+"\n");
-                    Console.Write(obj.ToString() + " => ");
-                    Console.WriteLine("Pong ! {0},time:{1}", reply.Address.ToString(), reply.RoundtripTime);
-                    existcount++;
-                }
-                else
-                {
-                    Console.WriteLine(obj.ToString() + " => ");
-                }
+                string ip = obj.ToString();
+                startPing(ip);
                 backcount++;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("異常回應，進行重試 ! {0}",(string)obj);
                 retrytimes++;
                 ThreadPool.QueueUserWorkItem(new WaitCallback(checkPing), (string)obj);
             }
             
+        }
+
+
+
+
+
+        //處理ping的部分
+        private static void startPing(string ip)
+        {
+            //輸出的字串
+            string outputline = "";
+
+            Ping pingSender = new Ping();
+            PingOptions options = new PingOptions();
+            options.DontFragment = true;
+            int timeout = config.pingTimeout;
+            PingReply reply = pingSender.Send(ip, timeout);
+            if (reply.Status == IPStatus.Success)
+            {
+                //File.AppendAllText(config.logpath, ip + "\n");
+                outputline += ip + " => ";
+                outputline += "Pong !"+reply.Address.ToString()+",time: "+reply.RoundtripTime;
+                snmp snmp = new snmp();
+                string hostname = snmp.getHostname(ip);
+                if (hostname != null)
+                {
+                    outputline += ","+hostname;
+                }
+                else
+                {
+                    outputline += " >\"<";
+                }
+                File.AppendAllText(config.logpath, ip + hostname + "\n");
+                existcount++;
+            }
+            else
+            {
+                outputline+= ip + " => ";
+            }
+            Console.WriteLine(outputline);
         }
         
 
@@ -98,7 +122,7 @@ namespace scanNetwork
 
 
 
-
+        //讀取設定黨
         private static void Readinput(){
             Console.WriteLine("輸入起點ipv4,預設是"+config.ip);
             string inputip = Console.ReadLine();
